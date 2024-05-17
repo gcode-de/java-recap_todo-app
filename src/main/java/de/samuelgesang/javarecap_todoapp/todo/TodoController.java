@@ -1,30 +1,41 @@
 package de.samuelgesang.javarecap_todoapp.todo;
 
-import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.RestClient;
-
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/todo")
 public class TodoController {
 
-    private List<TodoItem> todos = new ArrayList<>();
+    private final TodoService todoService;
 
-    public TodoController() {
-        todos.add(new TodoItem("DefaultTest", "test-id", todoStatus.OPEN));
+    public TodoController(TodoService todoService) {
+        this.todoService = todoService;
     }
 
     @GetMapping
     public List<TodoItem> getTodos(){
-        return todos;
+        return todoService.getAllTodos();
+    }
+
+    @GetMapping("{id}")
+    public Optional<TodoItem> getTodoById(@PathVariable String id){
+        return todoService.getTodoById(id);
     }
 
     @PostMapping
-    public TodoItem addTodo(@RequestBody TodoItem todoItem) {
-        todos.add(todoItem);
-        return todoItem;
+    public TodoItem addTodo(@RequestBody NewTodoItemDTO todoItem) {
+        return todoService.createTodo(todoItem);
+    }
+
+    @PutMapping("{id}")
+    public TodoItem addTodo(@PathVariable String id, @RequestBody TodoItem todoItem) {
+        return todoService.updateTodo(todoItem);
+    }
+
+    @DeleteMapping("{id}")
+    public void addTodo(@PathVariable String id) {
+        todoService.deleteTodo(id);
     }
 }

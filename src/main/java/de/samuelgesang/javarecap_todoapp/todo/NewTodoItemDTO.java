@@ -1,4 +1,4 @@
 package de.samuelgesang.javarecap_todoapp.todo;
 
-public record NewTodoItemDTO(String title, todoStatus status ) {
+public record NewTodoItemDTO(String description, todoStatus status ) {
 }

@@ -1,14 +1,6 @@
 package de.samuelgesang.javarecap_todoapp.todo;
 
+import org.springframework.data.mongodb.repository.MongoRepository;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.RequiredArgsConstructor;
-
-import java.util.List;
-
-@Data
-@AllArgsConstructor
-public class TodoRepository {
-    private List<TodoItem> todos;
+public interface TodoRepository extends MongoRepository<TodoItem, String> {
 }
